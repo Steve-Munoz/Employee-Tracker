@@ -1,5 +1,6 @@
 const mysql = require("mysql");
 
+// var connection = mysql.createConnection({
 var connection = mysql.createConnection({
   // ↓ below are my connection options. See https://www.npmjs.com/package/mysql for more info
   host: "localhost",
