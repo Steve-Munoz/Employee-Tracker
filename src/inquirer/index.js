@@ -1,5 +1,6 @@
 var inquirer = require("inquirer");
 var { viewEmployees } = require("../utils/employee");
+var { viewEmpDep } = require("../utils/employee");
 
 // ↓ This package prints MySQL rows to the console
 const cTable = require("console.table");
@@ -30,20 +31,44 @@ function start() {
           .prompt({
             name: "queryChoices",
             type: "list",
-            message: "What would you like to do?",
-            choices: ["sales"],
+            message:
+              "Which Department would you like to view all employees from?",
+            choices: ["Sales", "Engineering", "Finance", "Legal"],
           })
           .then(function (answer) {
-            viewEmpByDep(answer);
+            viewEmpDep(answer);
           });
-
-        viewEmpByDep();
       } else if (answer.queryChoices === "View All Employees By Manager") {
-        viewEmpByManager();
+        inquirer
+          .prompt({
+            name: "queryChoices",
+            type: "list",
+            message: "Which Manager would you like to view all employees?",
+            choices: ["Velma Dinkley", "Scooby Doo", "Peter Parker"],
+          })
+          .then(function (answer) {
+            viewEmpByManager(answer);
+          });
       } else if (answer.queryChoices === "Add Employee") {
-        addEmployee();
+        inquirer
+          .prompt({
+            name: "queryChoices",
+            type: "input",
+            message: "Enter employee name you want to add:",
+          })
+          .then(function (answer) {
+            addEmployee(answer);
+          });
       } else if (answer.queryChoices === "Remove Employee") {
-        removeEmployee();
+        inquirer
+          .prompt({
+            name: "queryChoices",
+            type: "input",
+            message: "Which employee do you want to remove:",
+          })
+          .then(function (answer) {
+            removeEmployee(answer);
+          });
       } else if (answer.queryChoices === "Update Employee Role") {
         updateEmpRole();
       } else if (answer.queryChoices === "Update Employee Manager") {
