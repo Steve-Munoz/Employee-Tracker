@@ -13,13 +13,13 @@ VALUES
 ("Lawyer",190000,4),
 ("Lead Engineer",150000,2);
 
-INSERT INTO employee (first_name, last_name,role_id,manager_id)
+INSERT INTO employee (first_name, last_name,role_id,manager_id, manager)
 VALUES
-("Scooby","Doo",1,1),
-("Scrappy","Doo",2,2),
-("Velma","Dinkley",3,3),
-("Daphne","Blake",4,4),
-("Shaggy","Rogers",5,5),
-("Fred","Jones",6,6),
-("Peter","Parker",7,7),
-("Mary Jane","Watson",8,8);
+("Scooby","Doo",1,2, "Velma Dinkley"),
+("Scrappy","Doo",2,1,"Scooby Doo"),
+("Velma","Dinkley",3,null,null),
+("Daphne","Blake",4,3,"Velma Dinkley"),
+("Shaggy","Rogers",5,null,null),
+("Fred","Jones",6,null,null),
+("Peter","Parker",7,4,"Fred Jones"),
+("Mary Jane","Watson",8,5,"Scrappy Doo");
