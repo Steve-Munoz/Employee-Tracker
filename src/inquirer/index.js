@@ -1,6 +1,7 @@
 var inquirer = require("inquirer");
 var { viewEmployees } = require("../utils/employee");
 var { viewEmpDep } = require("../utils/employee");
+var { viewEmpByManager } = require("../utils/employee");
 
 // ↓ This package prints MySQL rows to the console
 const cTable = require("console.table");
@@ -44,7 +45,12 @@ function start() {
             name: "queryChoices",
             type: "list",
             message: "Which Manager would you like to view all employees?",
-            choices: ["Velma Dinkley", "Scooby Doo", "Peter Parker"],
+            choices: [
+              "Velma Dinkley",
+              "Scooby Doo",
+              "Fred Jones",
+              "Scrappy Doo",
+            ],
           })
           .then(function (answer) {
             viewEmpByManager(answer);

@@ -12,9 +12,27 @@ function viewEmployees() {
   );
 }
 
+// function createEmployee(firstName, lastName) {
+//   connection.query(
+//     `INSERT INTO employee_trackerdb.employee first_name = ${firstName}`
+//   )
+// }
+
 function viewEmpDep(answer) {
   connection.query(
     `SELECT employee_trackerdb.employee.id, employee_trackerdb.employee.first_name, employee_trackerdb.employee.last_name, employee_trackerdb.role.title,employee_trackerdb.role.salary, employee_trackerdb.department.name as department_name  FROM employee_trackerdb.employee INNER JOIN employee_trackerdb.role ON employee_trackerdb.employee.role_id = employee_trackerdb.role.id INNER JOIN employee_trackerdb.department ON employee_trackerdb.department.id = employee_trackerdb.role.department_id WHERE name = '${answer.queryChoices}'`,
+    function (err, results) {
+      if (err) throw err;
+      // console.log("import results", results);
+      // console.log(answer);
+      console.table(results);
+    }
+  );
+}
+
+function viewEmpByManager(answer) {
+  connection.query(
+    `SELECT employee_trackerdb.employee.id, employee_trackerdb.employee.first_name, employee_trackerdb.employee.last_name, employee_trackerdb.role.title,employee_trackerdb.role.salary, employee_trackerdb.department.name as department_name, employee_trackerdb.employee.manager  FROM employee_trackerdb.employee INNER JOIN employee_trackerdb.role ON employee_trackerdb.employee.role_id = employee_trackerdb.role.id INNER JOIN employee_trackerdb.department ON employee_trackerdb.department.id = employee_trackerdb.role.department_id  WHERE manager = '${answer.queryChoices}'`,
     function (err, results) {
       if (err) throw err;
       // console.log("import results", results);
@@ -34,4 +52,4 @@ function viewEmpDep(answer) {
 //     }
 //   );
 // }
-module.exports = { viewEmployees, viewEmpDep };
+module.exports = { viewEmployees, viewEmpDep, viewEmpByManager };
