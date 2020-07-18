@@ -79,12 +79,10 @@ function updateEmpRole(answer) {
     `SELECT first_name, last_name, role_id, manager_id, manager FROM employee_trackerdb.employee WHERE first_name = '${answer.firstName}'`,
     function (err, results) {
       if (err) throw err;
-      // console.log("Successfully updated employee role");
-      // viewEmployees();
     }
   );
   connection.query(
-    `UPDATE employee SET role_id = "5" WHERE first_name = "Steve"`,
+    `UPDATE employee SET role_id = ${answer.roleId} WHERE first_name = '${answer.firstName}'`,
     function (err, results) {
       if (err) throw err;
       console.log("Successfully updated employee role");
