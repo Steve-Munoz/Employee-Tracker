@@ -12,7 +12,7 @@ CREATE TABLE department (
 -- increment its default value as we create new rows and..
 -- sets id as this table's primary key which means all data contained within it will be unique --
   id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  --↓ Makes a string column called "name" which default is null --
+
   name VARCHAR(30) NULL
   
 );
@@ -21,7 +21,7 @@ CREATE TABLE role (
   id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   title VARCHAR(30) NULL,
   salary DECIMAL NULL,
-  DEPARTMENT_ID INT NULL
+  department_id INT NULL
   
 );
 
@@ -30,12 +30,7 @@ CREATE TABLE employee (
   first_name VARCHAR(30) NULL,
   last_name VARCHAR(30) NULL,
   role_id INT NULL,
-  manager_id DECIMAL NULL
+  manager_id DECIMAL NULL,
+  manager VARCHAR(30) NULL
   
 );
-
-SELECT * FROM department;
-
-SELECT * FROM role;
-
-SELECT * FROM employee;
