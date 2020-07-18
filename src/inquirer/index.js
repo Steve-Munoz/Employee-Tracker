@@ -142,7 +142,7 @@ function start() {
             },
           ])
           .then(function (answer) {
-            updateEmpRole();
+            updateEmpRole(answer);
           });
       } else if (answer.queryChoices === "Update Employee Manager") {
         inquirer
