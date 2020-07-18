@@ -1,7 +1,11 @@
-var inquirer = require("inquirer");
-var { viewEmployees } = require("../utils/employee");
-var { viewEmpDep } = require("../utils/employee");
-var { viewEmpByManager } = require("../utils/employee");
+const inquirer = require("inquirer");
+const { viewEmployees } = require("../utils/employee");
+const { viewEmpDep } = require("../utils/employee");
+const { viewEmpByManager } = require("../utils/employee");
+const { addEmployee } = require("../utils/employee");
+const { removeEmployee } = require("../utils/employee");
+const { updateEmpRole } = require("../utils/employee");
+const { updateEmpManager } = require("../utils/employee");
 
 // ↓ This package prints MySQL rows to the console
 const cTable = require("console.table");
@@ -57,11 +61,43 @@ function start() {
           });
       } else if (answer.queryChoices === "Add Employee") {
         inquirer
-          .prompt({
-            name: "queryChoices",
-            type: "input",
-            message: "Enter employee name you want to add:",
-          })
+          .prompt([
+            {
+              name: "firstName",
+              type: "input",
+              message: "Enter employee first name you want to add:",
+            },
+            {
+              name: "lastName",
+              type: "input",
+              message: "Enter employee's last name you want to add:",
+            },
+            {
+              name: "roleId",
+              type: "list",
+              message:
+                "What is the employee's role id?" +
+                "\n Sales Lead: roleId(1) \n Salesperson: roleId(2) \n Lead Engineer: roleID(3) \n Software Engineer: roleId(4) \n Accountant:roleId(5) \n Legal Team Lead: roleId(6) \n Lawyer: roleId(7)",
+              choices: [1, 2, 3, 4, 5, 6, 7],
+            },
+
+            // {
+            //   name: "departmentId",
+            //   type: "list",
+            //   message:
+            //     "What is the employee's department id?" +
+            //     "\n Sales: Id(1) \n Engineering: Id(2) \n Finance: Id(3) \n Legal: Id(4)",
+            //   choices: [1, 2, 3, 4],
+            // },
+            {
+              name: "managerId",
+              type: "list",
+              message:
+                "What is the employee's manager id?" +
+                "\n Scooby Doo: Id(1) \n Velma Dinkley: Id(2) \n Fred Jones: Id(4)",
+              choices: [1, 2, 4],
+            },
+          ])
           .then(function (answer) {
             addEmployee(answer);
           });
@@ -70,15 +106,81 @@ function start() {
           .prompt({
             name: "queryChoices",
             type: "input",
-            message: "Which employee do you want to remove:",
+            // filter: viewEmployees(),
+            message:
+              "Which employee do you want to remove? Enter First Name only:",
           })
           .then(function (answer) {
             removeEmployee(answer);
           });
       } else if (answer.queryChoices === "Update Employee Role") {
-        updateEmpRole();
+        inquirer
+          .prompt([
+            {
+              name: "firstName",
+              type: "list",
+              message: "Which Employee do you want update role",
+              choices: [
+                "Scooby",
+                "Scrappy",
+                "Velma",
+                "Daphne",
+                "Shaggy",
+                "Fred",
+                "Peter",
+                "Mary Jane",
+                "Steve",
+              ],
+            },
+            {
+              name: "roleId",
+              type: "list",
+              message:
+                "Which role id do you want to change employee to?" +
+                "\n Sales Lead: roleId(1) \n Salesperson: roleId(2) \n Lead Engineer: roleID(3) \n Software Engineer: roleId(4) \n Accountant:roleId(5) \n Legal Team Lead: roleId(6) \n Lawyer: roleId(7)",
+              choices: [1, 2, 3, 4, 5, 6, 7],
+            },
+          ])
+          .then(function (answer) {
+            updateEmpRole();
+          });
       } else if (answer.queryChoices === "Update Employee Manager") {
-        updateEmpManager();
+        inquirer
+          .prompt([
+            {
+              name: "firstName",
+              type: "list",
+              message: "Which Employee do you want change manager",
+              choices: [
+                "Scooby",
+                "Scrappy",
+                "Velma",
+                "Daphne",
+                "Shaggy",
+                "Fred",
+                "Peter",
+                "Mary Jane",
+                "Steve",
+              ],
+            },
+            {
+              name: "managerId",
+              type: "list",
+              message:
+                "Choose employee's new Manager by selecting Manager id:" +
+                "\n Scooby Doo: Id(1) \n Velma Dinkley: Id(2) \n Fred Jones: Id(4)",
+              choices: [1, 2, 4],
+            },
+            {
+              name: "manager",
+              type: "list",
+              message: "Choose manager name:",
+              choices: ["Scooby", "Velma", "Fred"],
+            },
+          ])
+          .then(function (answer) {
+            updateEmpManager(answer);
+          });
       } else if (answer.queryChoices === "None") {
         return process.exit(22); // "process.exit" is a function that exits from the current Node.js process..
         //↑ .. and takes a exit code, which is an integer. In this case it is 22..
