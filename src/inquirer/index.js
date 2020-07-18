@@ -81,14 +81,6 @@ function start() {
               choices: [1, 2, 3, 4, 5, 6, 7],
             },
 
-            // {
-            //   name: "departmentId",
-            //   type: "list",
-            //   message:
-            //     "What is the employee's department id?" +
-            //     "\n Sales: Id(1) \n Engineering: Id(2) \n Finance: Id(3) \n Legal: Id(4)",
-            //   choices: [1, 2, 3, 4],
-            // },
             {
               name: "managerId",
               type: "list",
@@ -106,7 +98,7 @@ function start() {
           .prompt({
             name: "queryChoices",
             type: "input",
-            // filter: viewEmployees(),
+
             message:
               "Which employee do you want to remove? Enter First Name only:",
           })

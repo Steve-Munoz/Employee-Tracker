@@ -6,17 +6,11 @@ function viewEmployees() {
     "SELECT employee_trackerdb.employee.id, employee_trackerdb.employee.first_name, employee_trackerdb.employee.last_name, employee_trackerdb.role.title,employee_trackerdb.employee.manager,employee_trackerdb.role.salary, employee_trackerdb.department.name as department_name  FROM employee_trackerdb.employee INNER JOIN employee_trackerdb.role ON employee_trackerdb.employee.role_id = employee_trackerdb.role.id INNER JOIN employee_trackerdb.department ON employee_trackerdb.department.id = employee_trackerdb.role.department_id",
     function (err, results) {
       if (err) throw err;
-      // console.log("import results", results);
+
       console.table(results);
     }
   );
 }
-
-// function createEmployee(firstName, lastName) {
-//   connection.query(
-//     `INSERT INTO employee_trackerdb.employee first_name = ${firstName}`
-//   )
-// }
 
 function viewEmpDep(answer) {
   connection.query(
@@ -95,16 +89,12 @@ function updateEmpManager(answer) {
     `SELECT first_name, last_name, role_id, manager_id, manager FROM employee_trackerdb.employee WHERE first_name = '${answer.firstName}'`,
     function (err, results) {
       if (err) throw err;
-      // console.log("Successfully updated employee role");
-      // viewEmployees();
     }
   );
   connection.query(
     `UPDATE employee SET manager_id = '${answer.managerId}' WHERE first_name = '${answer.firstName}'`,
     function (err, results) {
       if (err) throw err;
-      console.log("Successfully updated employee manager");
-      viewEmployees();
     }
   );
   connection.query(
@@ -117,16 +107,6 @@ function updateEmpManager(answer) {
   );
 }
 
-// function viewEmpDep(answer) {
-//   connection.query(
-//     // WHERE department_name = ${answer}
-//     "SELECT employee_trackerdb.employee.id, employee_trackerdb.employee.first_name, employee_trackerdb.employee.last_name, employee_trackerdb.role.title,employee_trackerdb.role.salary, employee_trackerdb.department.name as department_name  FROM employee_trackerdb.employee INNER JOIN employee_trackerdb.role ON employee_trackerdb.employee.role_id = employee_trackerdb.role.id INNER JOIN employee_trackerdb.department ON employee_trackerdb.department.id = employee_trackerdb.role.department_id WHERE name = {answer}")
-//       if (err) throw err;
-//       // console.log("import results", results);
-//       console.table(results);
-//     }
-//   );
-// }
 module.exports = {
   viewEmployees,
   viewEmpDep,
